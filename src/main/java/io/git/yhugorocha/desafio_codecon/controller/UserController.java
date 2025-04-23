@@ -2,6 +2,7 @@ package io.git.yhugorocha.desafio_codecon.controller;
 
 import io.git.yhugorocha.desafio_codecon.dto.ImportResponse;
 import io.git.yhugorocha.desafio_codecon.dto.SuperUserResponse;
+import io.git.yhugorocha.desafio_codecon.dto.TeamInsightsResponse;
 import io.git.yhugorocha.desafio_codecon.dto.TopCountriesResponse;
 import io.git.yhugorocha.desafio_codecon.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,14 @@ public class UserController {
         var top = userService.getTopCountries();
         long elapsed = System.currentTimeMillis() - start;
         return ResponseEntity.ok(new TopCountriesResponse(LocalDateTime.now(), elapsed, top));
+    }
+
+    @GetMapping("/team-insights")
+    public ResponseEntity<TeamInsightsResponse> getTeamInsights(){
+        long start  = System.currentTimeMillis();
+        var teamInsights = userService.getTeamInsights();
+        long elapsed = System.currentTimeMillis() - start;
+        var result = new TeamInsightsResponse(LocalDateTime.now(), elapsed, teamInsights);
+        return ResponseEntity.ok(result);
     }
 }
